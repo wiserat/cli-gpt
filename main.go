@@ -1,22 +1,24 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"os"
 	"bufio"
-	"io"
+	"context"
 	"errors"
-	"strings"
+	"fmt"
+	"io"
+	"io/fs"
+	"os"
 	"os/exec"
 	"strconv"
+	"strings"
+
 	openai "github.com/sashabaranov/go-openai"
 )
 
 
 
 func chatgpt(message string, tokens int) string {
-	c := openai.NewClient("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")
+	c := openai.NewClient("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")
 	ctx := context.Background()
 
 	req := openai.ChatCompletionRequest{
@@ -57,17 +59,42 @@ func chatgpt(message string, tokens int) string {
 
 
 func create_file() {
-	file, err := os.Create("history.txt")
-	if err != nil {
-		fmt.Println("Error creating file")
-		return
+	if _, err := os.Stat("history.txt"); os.IsNotExist(err) {
+		file, err := os.Create("history.txt")
+		if err != nil {
+			fmt.Println("Error creating file")
+			return
+		}
+		defer file.Close()
 	}
-	defer file.Close()
 }
 
 
 func write_file(message, gptOutput string) {
+	file, err := os.OpenFile("history.txt",
+							os.O_APPEND|os.O_WRONLY,
+							fs.ModeAppend)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	defer file.Close()
 
+	_, err = fmt.Fprintln(file, message, "\n",gptOutput)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+}
+
+
+func read_file() {
+	file, err := os.ReadFile("history.txt")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println(string(file))
 }
 
 
@@ -91,6 +118,8 @@ func main() {
 			cmd.Run()
 		} else if message == "" {
 			continue
+		} else if message == "history" {
+			read_file()
 		} else {
 			parts := strings.Split(message, " -")
 			var tokens int
@@ -104,11 +133,11 @@ func main() {
 
 				switch s {
 					case "e":
-						s = " like I am expert"
+						s = " like I'm an expert"
 						message = message + s
 						continue
 					case "c":
-						s = " like I am child"
+						s = " like I'm a child"
 						message = message + s
 						continue
 				}
