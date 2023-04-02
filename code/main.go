@@ -19,7 +19,7 @@ import (
 )
 
 func chatgptStream(message string, tokens int) string {
-	c := openai.NewClient("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")
+	c := openai.NewClient("your api key")
 	ctx := context.Background()
 
 	req := openai.ChatCompletionRequest{
