@@ -1,3 +1,30 @@
 # cli-gpt
 
-vse je v prvopocatku ale je potreba zmenit api key muj je timto zablokovane
+Cli ChatGPT with features like shortcuts or history written in Golang.
+
+
+## Installation
+
+```bash
+git clone https://github.com/wiserat/cli-gpt
+cd cli-gpt
+chmod 775 cligpt
+```
+
+And copy paste yours [OpenAI api key](https://platform.openai.com/account/api-keys) to "key.txt"
+
+
+## Usage
+
+```
+commands:
+ 	help
+	exit
+	history clear
+	clear
+	history
+switches:
+ 	-{number of tokens} (lenght of the answer)
+	-c (like I am 10 years old)
+	-e (like i am expert)
+```
