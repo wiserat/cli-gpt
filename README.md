@@ -26,5 +26,5 @@ commands:
 switches:
  	-{number of tokens} (lenght of the answer)
 	-c (like I am 10 years old)
-	-e (like i am expert)
+	-e (like i am an expert)
 ```
