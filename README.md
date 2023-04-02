@@ -11,7 +11,7 @@ cd cli-gpt
 chmod 775 cligpt
 ```
 
-And copy paste yours [OpenAI api key](https://platform.openai.com/account/api-keys) to "key.txt"
+And copy paste your [OpenAI api key](https://platform.openai.com/account/api-keys) to "key.txt"
 
 
 ## Usage
