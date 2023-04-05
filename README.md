@@ -8,7 +8,7 @@ Cli ChatGPT with features like shortcuts or history written in Golang.
 ```bash
 git clone https://github.com/wiserat/cli-gpt
 cd cli-gpt
-chmod 775 cligpt
+chmod +x cligpt
 ```
 
 And copy paste your [OpenAI api key](https://platform.openai.com/account/api-keys) to "key.txt"
